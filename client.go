@@ -143,8 +143,8 @@ func WithTag(t string) Option {
 // New returns a new client with a default API version. A project ID must be provided.
 // Zero or more options can be passed. For example:
 //
-//     client := sanity.New("projectId", sanity.DefaultDataset,
-//       sanity.WithCDN(true), sanity.WithToken("mytoken"))
+//	client := sanity.New("projectId", sanity.DefaultDataset,
+//	  sanity.WithCDN(true), sanity.WithToken("mytoken"))
 func New(projectID, dataset string, opts ...Option) (*Client, error) {
 	return VersionDefault.NewClient(projectID, dataset, opts...)
 }
@@ -152,9 +152,8 @@ func New(projectID, dataset string, opts ...Option) (*Client, error) {
 // NewClient returns a new versioned client. A project ID must be provided.
 // Zero or more options can be passed. For example:
 //
-//     client := sanity.VersionV20210325.NewClient("projectId", sanity.DefaultDataset,
-//       sanity.WithCDN(true), sanity.WithToken("mytoken"))
-//
+//	client := sanity.VersionV20210325.NewClient("projectId", sanity.DefaultDataset,
+//	  sanity.WithCDN(true), sanity.WithToken("mytoken"))
 func (v Version) NewClient(projectID, dataset string, opts ...Option) (*Client, error) {
 	if projectID == "" {
 		return nil, errors.New("project ID cannot be empty")

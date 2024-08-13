@@ -87,3 +87,31 @@ type GetDocumentsResponse struct {
 
 // Document is a map of document attributes
 type Document map[string]interface{}
+
+type AssetUploadResponse struct {
+	ID               string              `json:"_id"`
+	Type             string              `json:"_type"`
+	AssetID          string              `json:"assetId"`
+	Path             string              `json:"path"`
+	URL              string              `json:"url"`
+	OriginalFilename string              `json:"originalFilename"`
+	Size             int                 `json:"size"`
+	Metadata         AssetUploadMetadata `json:"metadata"`
+}
+
+type AssetUploadMetadata struct {
+	Dimensions AssetUploadDimensions `json:"dimensions"`
+	Location   *AssetUploadLocation  `json:"location,omitempty"`
+}
+
+type AssetUploadDimensions struct {
+	Height      int     `json:"height"`
+	Width       int     `json:"width"`
+	AspectRatio float64 `json:"aspectRatio"`
+}
+
+type AssetUploadLocation struct {
+	Latitude  float64 `json:"lat"`
+	Longitude float64 `json:"lon"`
+	Altitude  float64 `json:"alt"`
+}
