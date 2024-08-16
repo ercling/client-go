@@ -27,6 +27,7 @@ type AssetBuilder struct {
 	tag string
 }
 
+// Upload uploads the asset data. For the api reference see: https://www.sanity.io/docs/assets
 func (ab *AssetBuilder) Upload(ctx context.Context, assetType AssetType, data []byte) (*api.AssetUploadResponse, error) {
 	if ab.err != nil {
 		return nil, fmt.Errorf("asset builder: %w", ab.err)
@@ -46,8 +47,15 @@ func (ab *AssetBuilder) Upload(ctx context.Context, assetType AssetType, data []
 		Tag(ab.tag, ab.c.tag)
 
 	var resp api.AssetUploadResponse
-	if _, err := ab.c.do(ctx, req, &resp); err != nil {
+	var respItem api.MutateResultItem
+
+	if _, err := ab.c.do(ctx, req, &respItem); err != nil {
 		return nil, fmt.Errorf("asset: %w", err)
+	}
+
+	err := respItem.Unmarshal(&resp)
+	if err != nil {
+		return nil, fmt.Errorf("response unmarshal: %w", err)
 	}
 
 	return &resp, nil
